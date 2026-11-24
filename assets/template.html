@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程名 · 章节 · 版本</title>
+<style>
+  :root{
+    --ink:#1c2530; --ink2:#4a5768; --line:#dde3ec;
+    --bg:#fff; --soft:#f6f8fb; --soft2:#eef3f9;
+    --blue:#1f4e79; --blue-l:#2f6fa8;
+    --red:#b3372c; --red-bg:#fdf3f1;
+    --green:#1c6b47; --green-bg:#f1f8f4;
+    --amber:#8a5a00; --amber-bg:#fdf8ec;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.72}
+  .wrap{max-width:940px;margin:0 auto;padding:0 26px 90px}
+
+  header.top{border-bottom:2px solid var(--ink);padding:34px 0 20px;margin-bottom:8px}
+  .kicker{font-size:12px;letter-spacing:.18em;color:var(--blue-l);font-weight:700;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:29px;line-height:1.3;margin:0 0 10px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--ink2);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;margin-top:16px;font-size:12.5px;color:var(--ink2)}
+  .meta span{padding-right:14px;margin-right:14px;border-right:1px solid var(--line)}
+  .meta span:last-child{border:0}
+
+  nav.toc{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);
+    backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line);margin-bottom:34px}
+  nav.toc ul{list-style:none;display:flex;flex-wrap:wrap;margin:0;padding:9px 0;font-size:12.5px}
+  nav.toc a{color:var(--ink2);text-decoration:none;padding:4px 11px;border-radius:20px}
+  nav.toc a:hover{background:var(--soft2);color:var(--blue)}
+
+  section{margin:0 0 54px;scroll-margin-top:60px}
+  h2{font-size:21px;margin:0 0 6px;font-weight:800;letter-spacing:-.01em;
+    padding-bottom:9px;border-bottom:1px solid var(--ink);display:flex;align-items:baseline;gap:10px}
+  h2 .n{font-size:12px;font-weight:700;color:#fff;background:var(--ink);
+    padding:2px 7px;border-radius:3px;letter-spacing:.06em;flex:none;transform:translateY(-2px)}
+  h3{font-size:16px;margin:30px 0 10px;font-weight:700;padding-left:10px;border-left:3px solid var(--blue-l)}
+  h4{font-size:14px;margin:20px 0 8px;font-weight:700;color:var(--blue)}
+  .lead{color:var(--ink2);font-size:14px;margin:10px 0 18px}
+  p{margin:10px 0}
+
+  .card{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:16px 0;background:#fff}
+  .card.soft{background:var(--soft)}
+  .box{border-radius:7px;padding:13px 16px;margin:14px 0;font-size:14px;border:1px solid}
+  .box .bt{font-weight:700;display:block;margin-bottom:4px;font-size:13px}
+  .box.warn{background:var(--red-bg);border-color:#f0d3cd;color:#5d2a23}
+  .box.warn .bt{color:var(--red)}
+  .box.ok{background:var(--green-bg);border-color:#cde6d8;color:#12452d}
+  .box.ok .bt{color:var(--green)}
+  .box.tip{background:var(--amber-bg);border-color:#f0e3c4;color:#5b3c00}
+  .box.tip .bt{color:var(--amber)}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft2);font-weight:700;font-size:12.5px}
+  td.small{font-size:12.5px;color:var(--ink2)}
+  tbody tr:nth-child(even){background:#fcfdfe}
+  table.compact th,table.compact td{padding:5px 8px}
+
+  pre{background:#f7f9fc;border:1px solid var(--line);border-left:3px solid var(--blue-l);
+    border-radius:6px;padding:13px 15px;overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:13px;line-height:1.72;margin:12px 0;color:#162232;white-space:pre}
+  pre .c{color:#7c8a9e}
+  pre .k{color:var(--blue);font-weight:700}
+  pre .s{color:#8a4b1a}
+  pre .e{color:var(--red);font-weight:600}
+  code.inl{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;
+    background:var(--soft2);padding:1px 5px;border-radius:3px;color:#16232f}
+
+  .def{border:1px solid var(--line);border-radius:7px;margin:11px 0;overflow:hidden;break-inside:avoid}
+  .def-h{background:var(--soft2);padding:8px 13px;font-weight:700;font-size:13.5px;
+    display:flex;align-items:center;gap:9px}
+  .def-h .tag{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:3px;
+    background:#fff;border:1px solid var(--line);color:var(--ink2);flex:none}
+  .def-b{padding:11px 13px;font-size:13.8px}
+  .def-b .std{border-left:3px solid var(--blue-l);padding:2px 0 2px 11px;margin:0 0 7px;font-weight:500}
+  .def-b .plain{color:var(--ink2);font-size:13px}
+  .def-b .pt{color:var(--red);font-size:12.8px;margin-top:6px}
+
+  .map{border:1px solid var(--ink);border-radius:8px;margin:20px 0;overflow:hidden}
+  .map-root{background:var(--ink);color:#fff;text-align:center;padding:11px;font-weight:800;font-size:15px;letter-spacing:.03em}
+  .map-flow{display:flex;background:#fbfcfe;border-bottom:1px solid var(--line)}
+  .map-flow div{flex:1;text-align:center;padding:8px 4px;font-size:12px;color:var(--ink2);position:relative}
+  .map-flow div+div::before{content:"→";position:absolute;left:-7px;color:#a9b9cc;font-weight:700}
+  .map-cols{display:grid;grid-template-columns:repeat(3,1fr)}
+  .map-col{border-right:1px solid var(--line);padding-bottom:14px}
+  .map-col:last-child{border-right:0}
+  .map-col h5{margin:0;padding:9px 12px;font-size:13px;background:var(--soft2);
+    border-bottom:1px solid var(--line);color:var(--blue)}
+  .map-col ul{list-style:none;margin:0;padding:8px 12px 0;font-size:12.6px;line-height:1.55}
+  .map-col li{padding:5px 0 5px 12px;position:relative;border-bottom:1px dashed #eef1f6}
+  .map-col li b{font-weight:700}
+  .map-col li em{color:#8d9aab;font-style:normal;font-size:11.6px;margin-left:5px}
+  .map-col li.hot::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;
+    border-radius:50%;background:var(--red)}
+
+  .ex{border:1px solid var(--line);border-radius:7px;margin:16px 0;overflow:hidden;break-inside:avoid}
+  .ex-h{background:var(--soft2);padding:9px 14px;font-size:13.6px;font-weight:600;
+    display:flex;gap:10px;align-items:baseline;border-bottom:1px solid var(--line)}
+  .ex-h .lb{font-size:11px;font-weight:700;color:#fff;background:var(--blue-l);
+    padding:2px 7px;border-radius:3px;flex:none}
+  .ct{width:100%;border-collapse:collapse;font-size:12.6px;table-layout:fixed;margin:0}
+  .ct td{padding:1px 0;vertical-align:top;border:0}
+  .ct td.c1{width:57%;padding:2px 12px 2px 15px;white-space:pre;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.4px;line-height:1.78;color:#162232;background:#f9fbfd;
+    border-right:1px dashed #dbe4ef;overflow-wrap:break-word}
+  .ct td.c1 .k{color:var(--blue);font-weight:700}
+  .ct td.c1 .s{color:#8a4b1a}
+  .ct td.c1 .c{color:#7c8a9e}
+  .ct td.c1 .req{color:#8a4b1a;background:#fdf6ec;border-bottom:1px solid #e8cfa8;padding-bottom:1px}
+  .ct td.c2{padding:2px 14px 2px 10px;font-size:12.2px;line-height:1.78;color:#5a6a80;background:#fff}
+  .ct td.c2 b{color:var(--blue);font-weight:700}
+  .ct tr.blank td{height:8px;padding:0}
+  .ct tr:first-child td{padding-top:10px}
+  .ct tr:last-child td{padding-bottom:11px}
+  .ex-note{padding:9px 15px 11px;border-top:1px dashed var(--line);font-size:12.8px}
+  .ex-note p{margin:5px 0}
+  .ex-note p::before{content:"↳ ";color:var(--blue-l);font-weight:700}
+
+  .nums{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+  .nums span{border:1px solid var(--line);border-radius:6px;padding:7px 12px;font-size:13px;background:var(--soft)}
+  .nums b{font-size:17px;color:var(--blue);margin-right:4px}
+
+  .check{list-style:none;margin:12px 0;padding:0;font-size:13.8px}
+  .check li{padding:4px 0 4px 24px;position:relative}
+  .check li::before{content:"☐";position:absolute;left:0;color:var(--blue-l);font-size:15px}
+
+  @media (max-width:640px){
+    body{font-size:14.6px;overflow-x:hidden}
+    .wrap{padding:0 12px 60px}
+    h1{font-size:22px}
+    .map-cols{grid-template-columns:1fr}
+    .map-col{border-right:0;border-bottom:1px solid var(--line)}
+    table th{white-space:normal}
+    table th,table td{min-width:0;padding:5px 7px;font-size:12.6px}
+    .ct td.c1{font-size:11px;padding-left:10px;white-space:pre-wrap}
+    .ct td.c2{font-size:11px;padding-right:10px}
+    pre{font-size:11.6px;padding:9px 10px}
+  }
+
+  @media print{
+    @page{margin:13mm 12mm}
+    body{font-size:10.5pt;line-height:1.55}
+    nav.toc{display:none}
+    .wrap{max-width:100%;padding:0}
+    header.top{padding-top:0}
+    section{margin-bottom:26px}
+    h2,h3,h4{break-after:avoid}
+    .def,.ex,.ex-h,.box,.map,.card{break-inside:avoid}
+    pre{font-size:9pt;background:#f7f9fc !important;overflow:visible;white-space:pre-wrap}
+    .ct td.c1{font-size:8pt;line-height:1.48;padding:1px 7px 1px 9px}
+    .ct td.c2{font-size:8.2pt;line-height:1.5;padding:1px 9px 1px 7px}
+    .ct tr{break-inside:avoid}
+    .ct tr.blank td{height:5px}
+    a{color:inherit;text-decoration:none}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="kicker">课程名 · 章节范围</div>
+  <h1>标题写「课程 · 范围 · 版本」</h1>
+  <p class="sub">一句话说明这篇讲什么，不含写作意图句。</p>
+  <div class="meta"><span>讲解 N 节</span><span>例题 N 道</span><span>约 N 页</span></div>
+</div></header>
+
+<nav class="toc"><div class="wrap"><ul>
+  <li><a href="#s0">00 这一章在讲什么</a></li>
+  <li><a href="#s1">01 概念讲解</a></li>
+  <li><a href="#s2">02 例题</a></li>
+  <li><a href="#s3">03 考点与易错</a></li>
+  <li><a href="#s4">04 一页速记</a></li>
+</ul></div></nav>
+
+<div class="wrap">
+
+<section id="s0">
+  <h2><span class="n">00</span>这一章在讲什么</h2>
+  <!-- 写作提示（交付前删除）：五到七句连续的话，从一个具体麻烦讲到这一章的办法，不要列表 -->
+  <p>数据存在磁盘上，怎么让不同的程序都能用又互不干扰？办法是分成三级——用户看到的样子、全局的样子、存储的样子。三级之间靠映像对应，改下面不影响上面，这就是数据独立性。这一章剩下的内容，都是这三级的具体定义和它们之间的换算规则。</p>
+  <div class="map">
+    <div class="map-root">本章主线</div>
+    <div class="map-flow"><div>节点一</div><div>节点二</div><div>节点三</div><div>节点四</div><div>节点五</div></div>
+    <div class="map-cols">
+      <div class="map-col"><h5>第 1 章 · 章名</h5><ul>
+        <li class="hot"><b>必考概念</b><em>必背</em></li>
+        <li><b>次要概念</b><em>选择</em></li>
+        <li><b>方法</b><em>计算</em></li>
+      </ul></div>
+      <div class="map-col"><h5>第 2 章 · 章名</h5><ul>
+        <li class="hot"><b>必考概念</b><em>简答</em></li>
+        <li><b>次要概念</b><em>选择</em></li>
+      </ul></div>
+      <div class="map-col"><h5>第 3 章 · 章名</h5><ul>
+        <li class="hot"><b>必考概念</b><em>大题</em></li>
+        <li><b>方法</b><em>计算</em></li>
+        <li><b>工具</b><em>应用</em></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="s1">
+  <h2><span class="n">01</span>概念讲解</h2>
+  <!-- 写作提示（交付前删除）：按主线顺序切节，一节只讲一个概念组；节标题要带出概念存在的原因，不只是名字 -->
+
+  <h3>1.1 〔术语名〕：为什么需要这个概念</h3>
+  <p class="lead">上一节讲了 X。但 X 解决不了 Y，这是本节要处理的。</p>
+
+  <div class="def">
+    <div class="def-h">〔术语名〕 <span class="tag">必背</span></div>
+    <div class="def-b">
+      <p class="std">〔教材或考卷的定义原文，一字不改，不合并句子〕</p>
+      <p class="plain">白话：〔一句大白话或一个比喻〕</p>
+      <p class="pt">考点：〔常问什么 → 答什么〕</p>
+    </div>
+  </div>
+
+  <p>最小例子：〔三行数据就能验算的那种〕</p>
+
+  <table class="compact">
+    <thead><tr><th style="width:24%">叫法</th><th style="width:38%">它是什么</th><th>和相邻的区别</th></tr></thead>
+    <tbody>
+      <tr><td>〔术语 A〕</td><td>〔它是什么〕</td><td>—</td></tr>
+      <tr><td>〔术语 B〕</td><td>〔它是什么〕</td><td>〔和 A 差在哪〕</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box tip"><span class="bt">一句话记住</span>〔能当的是 A，已经当了的是 B，抄别人的是 C〕</div>
+
+  <h3>1.2 〔下一个概念组〕：它接在什么地方</h3>
+  <p class="lead">接着上一节留下的问题继续。每节都要有这一句，否则读到第四节就丢了。</p>
+</section>
+
+<section id="s2">
+  <h2><span class="n">02</span>例题</h2>
+  <!-- 写作提示（交付前删除）：题目在上，左栏代码右栏解释，答案一次给全，当模板背 -->
+
+  <div class="ex">
+    <div class="ex-h"><span class="lb">例 1</span><span>〔用考卷的问法写题目〕</span></div>
+    <table class="ct">
+      <tr><td class="c1"><span class="k">SELECT</span> <span class="req">*</span></td><td class="c2"><b>回答"取哪些列"</b>。<b>*</b> 就是全部列，题目说"详细记录"一律用它</td></tr>
+      <tr><td class="c1"><span class="k">FROM</span>   <span class="req">表名</span>;</td><td class="c2"><b>回答"从哪张表取"</b>：FROM 表名 → 这里表名填实际那张</td></tr>
+      <tr class="blank"><td class="c1"></td><td class="c2"></td></tr>
+      <tr><td class="c1"><span class="k">WHERE</span>  <span class="req">条件</span></td><td class="c2">题目没有条件就别硬加，多写反而扣分</td></tr>
+    </table>
+    <div class="ex-note">
+      <p>行首缩进原样保留，这是段落感的来源，不是排版失误。</p>
+      <p>补充只放坑 / 变体 / 得分点，不重复右栏说过的话。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <h2><span class="n">03</span>考点与易错</h2>
+  <table class="compact">
+    <thead><tr><th style="width:22%">章节</th><th style="width:16%">分值</th><th style="width:28%">常见题型</th><th>处理</th></tr></thead>
+    <tbody>
+      <tr><td>第 3 章</td><td>45</td><td>写语句</td><td>主力，例题覆盖</td></tr>
+      <tr><td>第 7 章</td><td>3</td><td>选择题</td><td>只进图谱，不给正文</td></tr>
+    </tbody>
+  </table>
+  <table class="compact">
+    <thead><tr><th style="width:50%">错的写法</th><th>对的写法</th></tr></thead>
+    <tbody><tr><td><code class="inl">错的那个</code></td><td><code class="inl">对的那个</code>，一句话说明为什么</td></tr></tbody>
+  </table>
+</section>
+
+<section id="s4">
+  <h2><span class="n">04</span>一页速记</h2>
+  <div class="nums">
+    <span><b>3</b> 级模式</span><span><b>2</b> 级映像</span><span><b>8</b> 种运算</span><span><b>5</b> 条性质</span>
+  </div>
+  <ul class="check">
+    <li>能不能默写出〔概念 A〕的定义</li>
+    <li>能不能分清〔概念 B〕和〔概念 C〕</li>
+    <li>能不能手算〔方法 D〕</li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>
