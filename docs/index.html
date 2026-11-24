@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卷卷知识点讲解 · Skill</title>
+<style>
+  :root{
+    --ink:#1c2530; --ink2:#4a5768; --line:#dde3ec;
+    --soft:#f6f8fb; --soft2:#eef3f9;
+    --blue:#1f4e79; --blue-l:#2f6fa8; --red:#b3372c; --green:#1c6b47;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15.5px;line-height:1.75}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  header{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:.18em;color:var(--blue-l);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:38px;line-height:1.25;margin:0 0 14px;font-weight:800;letter-spacing:-.02em}
+  .sub{font-size:17px;color:var(--ink2);margin:0;max-width:640px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .badges a,.badges span{font-size:12.5px;text-decoration:none;padding:5px 11px;border-radius:20px;
+    border:1px solid var(--line);color:var(--ink2);background:var(--soft)}
+  .badges a:hover{background:var(--soft2);color:var(--blue)}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:22px;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+  h2 .n{font-size:12px;font-weight:700;color:#fff;background:var(--ink);padding:2px 7px;
+    border-radius:3px;margin-right:9px;vertical-align:2px}
+  .lead{color:var(--ink2);font-size:14.5px;margin:0 0 22px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{background:var(--soft2);font-size:13px}
+  td b{color:var(--blue)}
+  img{width:100%;border:1px solid var(--line);border-radius:8px;margin:18px 0;display:block}
+  pre{background:#f7f9fc;border:1px solid var(--line);border-left:3px solid var(--blue-l);
+    border-radius:6px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#162232}
+  .box{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:18px 0;font-size:14.5px}
+  .box b{color:var(--blue)}
+  .q{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+  .q div{border:1px solid var(--line);border-radius:8px;padding:13px 15px;font-size:14px}
+  .q div b{display:block;color:var(--blue);font-size:13px;margin-bottom:3px}
+  .ct{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:18px 0}
+  .ct>div{padding:10px 14px;font-size:13.2px;border-bottom:1px solid var(--line)}
+  .ct .l{background:#f9fbfd;border-right:1px dashed #dbe4ef;font-family:ui-monospace,Menlo,monospace;white-space:pre-wrap}
+  .ct .r{color:#5a6a80}
+  .ct .r b{color:var(--blue)}
+  .ct>div:nth-last-child(-n+2){border-bottom:0}
+  footer{padding:36px 0 70px;color:var(--ink2);font-size:13.5px}
+  footer a{color:var(--blue)}
+  @media (max-width:720px){
+    .q{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    h1{font-size:28px}
+    .ct{grid-template-columns:1fr}
+    .ct .l{border-right:0;border-bottom:1px dashed #dbe4ef}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="kicker">Skill · 知识点讲解</div>
+  <h1>卷卷知识点讲解</h1>
+  <p class="sub">把教材、真题、笔记整理成一篇<strong>能读懂、能照抄、能当模板套</strong>的讲解文章。输出单文件 HTML 与 A4 可打印 PDF。</p>
+  <div class="badges">
+    <a href="https://github.com/dxkjuanjuan/juanjuan-knowledge">GitHub 仓库</a>
+    <span>MIT License</span>
+    <span>Claude Code / WorkBuddy</span>
+    <span>v1.0</span>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2><span class="n">01</span>它解决什么问题</h2>
+  <p class="lead">用 AI 写知识总结，九成写成目录搬运：定义 1、定义 2、性质 1、性质 2。读者拿到的是一堆孤立条目，还得自己建立联系。</p>
+  <p>这个 Skill 强制换一种写法：先讲这一章要解决什么问题，再讲概念为什么被造出来，然后才是定义。</p>
+  <table>
+    <thead><tr><th style="width:22%"></th><th>罗列</th><th>讲解</th></tr></thead>
+    <tbody>
+      <tr><td>顺序</td><td>定义 1 → 定义 2 → 性质 1</td><td>要解决什么 → 为什么造它 → 定义 → 例子 → 容易混在哪</td></tr>
+      <tr><td>读者</td><td>要自己建立联系</td><td>顺着读就懂</td></tr>
+      <tr><td>例题</td><td>单独一块题库</td><td>用来印证概念</td></tr>
+    </tbody>
+  </table>
+  <img src="preview.png" alt="输出样式预览">
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="n">02</span>核心方法：五问法</h2>
+  <p class="lead">每个概念至少回答其中三问。这是整个 Skill 的质量底线。</p>
+  <div class="q">
+    <div><b>① 解决什么问题</b>为什么需要这个概念，它替代了什么笨办法</div>
+    <div><b>② 正式定义</b>教材或考卷原话，一字不改，能直接抄进答题纸</div>
+    <div><b>③ 最小例子</b>三行数据就能验算的那种，用来验证定义</div>
+    <div><b>④ 和谁容易混</b>和最近的那个概念差在哪，第三列写差值</div>
+    <div><b>⑤ 考试怎么问</b>写具体问法，不写"重点掌握"</div>
+  </div>
+  <div class="box">只答第 <b>②</b> 问＝罗列。答了 <b>①</b> 和 <b>④</b>＝讲解。</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="n">03</span>输出骨架：五段</h2>
+  <table>
+    <thead><tr><th style="width:26%">段落</th><th style="width:16%">占比</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>00 这一章在讲什么</td><td>8%</td><td>7 句讲清主线 + 演进图 + 知识点图谱</td></tr>
+      <tr><td>01 概念讲解</td><td><b>50%</b></td><td>一节一个概念组，五问法</td></tr>
+      <tr><td>02 例题</td><td>30%</td><td>题目 + 完整答案 + 左代码右解释</td></tr>
+      <tr><td>03 考点与易错</td><td>7%</td><td>分值分布 + 错法对照</td></tr>
+      <tr><td>04 一页速记</td><td>5%</td><td>数字、口诀、勾选清单</td></tr>
+    </tbody>
+  </table>
+  <div class="box">篇幅按可用时间裁剪：3 小时只留 00/01/04，半天五段全上但例题压到 5 个。<br><b>如果例题比讲解厚，说明写成了题库，不是文章。</b></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="n">04</span>例题只有一种格式</h2>
+  <p class="lead">左边是代码，右边是这一行在干什么，同一行水平对齐。</p>
+  <div class="ct">
+    <div class="l">CREATE TABLE Student (</div>
+    <div class="r"><b>CREATE TABLE ＋ 表名 ＋ 括号</b>：建表的固定骨架，这里表名就是 <b>Student</b></div>
+    <div class="l">    Sno CHAR(9) PRIMARY KEY,</div>
+    <div class="r">一行三样：<b>列名</b> Sno → <b>类型</b> CHAR(9)（定长 9 位）→ <b>约束</b> PRIMARY KEY（主码）。顺序不能反</div>
+  </div>
+  <p>对比两种常见写法为什么不行：</p>
+  <table>
+    <thead><tr><th style="width:34%">写法</th><th>问题</th></tr></thead>
+    <tbody>
+      <tr><td>语法模板 + 参数说明表</td><td>两处信息要来回跳，且模板脱离题目没意义</td></tr>
+      <tr><td>代码 + 下方箭头注释</td><td>眼睛上下扫，找不到哪句注释对应哪一行</td></tr>
+      <tr><td><b>左代码 / 右解释（同一行）</b></td><td>视线不跳跃，右栏顺手完成"通用写法 → 这里填了什么"的换算</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="n">05</span>安装</h2>
+  <pre>git clone https://github.com/dxkjuanjuan/juanjuan-knowledge.git
+
+# WorkBuddy
+cp -r juanjuan-knowledge ~/.workbuddy/skills/
+
+# Claude Code
+cp -r juanjuan-knowledge ~/.claude/skills/</pre>
+  <p>新开一个会话即可。触发语：「把第 3 章写成知识点讲解」「整理成能打印抄写的笔记」「把这一章的概念讲明白」。</p>
+</div></section>
+
+<footer><div class="wrap">
+  卷卷知识点讲解 · <a href="https://github.com/dxkjuanjuan/juanjuan-knowledge">github.com/dxkjuanjuan/juanjuan-knowledge</a> · MIT
+</div></footer>
+
+</body>
+</html>
